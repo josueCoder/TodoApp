@@ -1,14 +1,45 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
-</head>
-<body>
+<div class="container">
     <h1>{{title}}</h1>
     <ul>
-      <li *ngFor="let tack of tacks">{{tack}}</li>
+        <li *ngFor="let tack of tacks()">{{tack}}</li>
     </ul>
-</body>
-</html>
+    <hr/>
+    <h3>{{'hello'.repeat(5)}}</h3>
+    <p>La suma de 3+3 es {{3+3}}</p>
+    <hr/>
+    <p>I am {{name()}} and I have {{age}} years old, my address is {{address}}</p>
+    <hr/>
+    
+    <img [src]="person.avatar" alt="">
+    <input type="text" [value]="person.name">
+    <input type="number" [value]="person.age">
+    <button type="submit"  disabled="false">Click Me</button>
+    <hr/>
+    <h3>Eventos</h3>
+    <p>Click</p>
+    <button class="button" (click)="clickHandler()"> Click Me Ok</button>
+    <p>Double Click</p>
+    <button class="button" (dblclick)="dblClickHandler($event)">Double Click Me </button>
+    <p>Change</p>
+    <input type="number" [value]="person.age" (change)="changeHandler($event)">
+    <p>key Down</p>
+    <input type="text" [value]="person.name" (keydown)="keydownHandler($event)">
+
+    <h2>Signals</h2>
+
+    <input type="text" [value]="name()" (keydown)="nameHandler($event)">
+    <input type="text" [value]="name()">
+
+    <p>Total: {{tacks().length}}</p>
+    <ul>
+        <li *ngFor="let tack of tacks(); index as i">
+            {{i}}. {{tack}}
+        </li>
+    </ul>
+
+
+
+
+</div>
+
+

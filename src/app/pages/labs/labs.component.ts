@@ -1,18 +1,32 @@
 import { Component, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
+/*formularios reactivos */
+import { FormControl, ReactiveFormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-labs',
   standalone: true,
   imports: 
   [
-    CommonModule
+    CommonModule,
+    ReactiveFormsModule,
+   
   ],
   templateUrl: './labs.component.html',
   styleUrl: './labs.component.css'
 })
 export class LabsComponent {
   title = 'Hello TodoApp';
+
+  colorCtrl = new FormControl();
+
+  constructor(){
+    this.colorCtrl.valueChanges.subscribe(value => {
+      console.log(value)
+    })
+  }
+
+
   tacks =signal([
     'Instalar el CLI de angular',
     'Crear el proyecto',
@@ -22,11 +36,11 @@ export class LabsComponent {
   age = 28
   address = 'URB. San Martin'
 
-  person ={
-    name : 'Rody Josue',
+  person = signal({
+    name : 'josue',
     age: 28,
     avatar: 'https://images.pexels.com/photos/2102415/pexels-photo-2102415.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1'
-  }
+  })
 
 
   clickHandler(){
@@ -52,6 +66,27 @@ export class LabsComponent {
     this.name.set(newValue)
   }
 
+  ageHandler(event : Event){
+    const input  = event.target as  HTMLInputElement;
+    const newAge = input.value;
+    this.person.update((person=> {
+      return {
+        ...person,
+        age: parseInt(newAge,10)
+      }
+    }))
+  }
+  
+  nameHandlerFooter(event : Event){
+    const input = event.target as HTMLInputElement;
+    const newValue = input.value;
+    this.person.update((person)=>{
+      return {
+        ...person,
+        name : newValue
+      }
+    })
+  }
 
 
 

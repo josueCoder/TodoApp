@@ -10,9 +10,9 @@
     <p>I am {{name()}} and I have {{age}} years old, my address is {{address}}</p>
     <hr/>
     
-    <img [src]="person.avatar" alt="">
-    <input type="text" [value]="person.name">
-    <input type="number" [value]="person.age">
+    <img [src]="person().avatar" alt="">
+    <input type="text" [value]="person().name">
+    <input type="number" [value]="person().age">
     <button type="submit"  disabled="false">Click Me</button>
     <hr/>
     <h3>Eventos</h3>
@@ -21,9 +21,9 @@
     <p>Double Click</p>
     <button class="button" (dblclick)="dblClickHandler($event)">Double Click Me </button>
     <p>Change</p>
-    <input type="number" [value]="person.age" (change)="changeHandler($event)">
+    <input type="number" [value]="person().age" (change)="changeHandler($event)">
     <p>key Down</p>
-    <input type="text" [value]="person.name" (keydown)="keydownHandler($event)">
+    <input type="text" [value]="person().name" (keydown)="keydownHandler($event)">
 
     <h2>Signals</h2>
 
@@ -36,6 +36,35 @@
             {{i}}. {{tack}}
         </li>
     </ul>
+
+    <hr/>
+    <h2>ngIf</h2>
+
+    <input type="number" [value]="person().age" (change)="ageHandler($event)">
+    <p *ngIf="person().age >= 18 ; else elseBlock">Soy mayor de 18 años</p>
+
+    <ng-template #elseBlock>
+        <p>Soy menor de 18 años</p>
+    </ng-template>
+
+    <h2>ngSwitch</h2>
+
+    <input type="text" [value]="person().name" (keydown)="nameHandlerFooter($event)">
+    <div [ngSwitch]="person().name">
+        <p *ngSwitchCase="'josue'"> Yo soy josue</p>
+        <p *ngSwitchCase="'diego'"> Yo soy diego</p>
+        <p *ngSwitchCase="'piero'"> Yo soy piero</p>
+        <p *ngSwitchCase="'susan'"> Yo soy susan</p>
+        <p *ngSwitchCase="'michael'"> Yo soy michael</p>
+        <p *ngSwitchDefault>No soy nadie</p>
+    </div>
+    <h2>Formularios Reactivos</h2>
+
+    <input type="color" [formControl]="colorCtrl">
+    <p>Color: {{colorCtrl.value}}</p>
+
+
+
 
 
 

@@ -8,7 +8,8 @@
           placeholder="Type new todo"
           autofocus
           type="text"
-          (change)="changeHandler($event)"
+          [formControl]="tacksControl"
+          (keydown.enter)="changeHandler()"
         />
       </div>
     </header>
@@ -21,13 +22,18 @@
        </pre>
       <section class="main">
         <ul class="todo-list">
-          <li *ngFor="let tack of tacks(); index as i">
+          <li 
+          *ngFor="let tack of tacks(); index as i"
+          [class.completed]="tack.completed" 
+          (dblclick)="updateTackEditingMode(i)"
+          [class.editing]="tack.editing && !tack.completed"
+          >
             <div class="view">
               <input class="toggle" type="checkbox"  [checked]="tack.completed" (click)="onUpdateTack(i)"/>
               <label>{{tack.title}}</label>
               <button class="destroy" (click)="deleteTack(i)"></button>
             </div>
-            <input class="edit" value="Buy a unicorn" />
+            <input class="edit" [value]="tack.title" (keydown.enter)="updateTackText(i,$event)"/>
           </li>
           <!--
             <li class="completed" *ngFor="let tack of tacks()">

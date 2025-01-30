@@ -7,3 +7,18 @@
     color: white;
     border-radius: 20px;
 }
+.box{
+    height: 10px;
+    background-color: red;
+    display: block;
+}
+.message-error{
+    background-color: red;
+    color: white;
+    opacity: 0;
+    transition: all 0.5s;
+}
+
+.message-error.show{
+    opacity: 1;
+}

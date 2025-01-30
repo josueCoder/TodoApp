@@ -1,17 +1,17 @@
 import { Component, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 /*formularios reactivos */
-import { FormControl, ReactiveFormsModule } from '@angular/forms';
+import { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-labs',
   standalone: true,
-  imports: 
-  [
-    CommonModule,
-    ReactiveFormsModule,
-   
-  ],
+  imports:
+    [
+      CommonModule,
+      ReactiveFormsModule,
+
+    ],
   templateUrl: './labs.component.html',
   styleUrl: './labs.component.css'
 })
@@ -19,15 +19,31 @@ export class LabsComponent {
   title = 'Hello TodoApp';
 
   colorCtrl = new FormControl();
+  widthCtrl = new FormControl(50,
+    {
+      nonNullable: true,
+    }
 
-  constructor(){
+  )
+
+  nameCtrl = new FormControl('',
+    {
+      nonNullable: true,
+      validators: [
+        Validators.required,
+        Validators.minLength(3),
+      ]
+    }
+  )
+
+  constructor() {
     this.colorCtrl.valueChanges.subscribe(value => {
       console.log(value)
     })
   }
 
 
-  tacks =signal([
+  tacks = signal([
     'Instalar el CLI de angular',
     'Crear el proyecto',
     'Levantar el servicio'
@@ -37,53 +53,53 @@ export class LabsComponent {
   address = 'URB. San Martin'
 
   person = signal({
-    name : 'josue',
+    name: 'josue',
     age: 28,
     avatar: 'https://images.pexels.com/photos/2102415/pexels-photo-2102415.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1'
   })
 
 
-  clickHandler(){
+  clickHandler() {
     alert("Hello Angular!!!!!")
   }
 
-  dblClickHandler(event : Event){
+  dblClickHandler(event: Event) {
     console.log(event);
   }
 
-  changeHandler(event : Event){
+  changeHandler(event: Event) {
     console.log(event.target)
   }
 
-  keydownHandler(event : KeyboardEvent){
+  keydownHandler(event: KeyboardEvent) {
     const input = event.target as HTMLInputElement
     console.log(input.value)
   }
 
-  nameHandler(event : KeyboardEvent){
+  nameHandler(event: KeyboardEvent) {
     let input = event.target as HTMLInputElement;
-    let newValue= input.value;
+    let newValue = input.value;
     this.name.set(newValue)
   }
 
-  ageHandler(event : Event){
-    const input  = event.target as  HTMLInputElement;
+  ageHandler(event: Event) {
+    const input = event.target as HTMLInputElement;
     const newAge = input.value;
-    this.person.update((person=> {
+    this.person.update((person => {
       return {
         ...person,
-        age: parseInt(newAge,10)
+        age: parseInt(newAge, 10)
       }
     }))
   }
-  
-  nameHandlerFooter(event : Event){
+
+  nameHandlerFooter(event: Event) {
     const input = event.target as HTMLInputElement;
     const newValue = input.value;
-    this.person.update((person)=>{
+    this.person.update((person) => {
       return {
         ...person,
-        name : newValue
+        name: newValue
       }
     })
   }

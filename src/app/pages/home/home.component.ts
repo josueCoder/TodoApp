@@ -1,4 +1,4 @@
-import { Component, signal } from '@angular/core';
+import { Component, computed, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Tack } from '../../model/tack.model';
 import { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
@@ -44,6 +44,20 @@ export class HomeComponent {
       completed: false
     }
   ])
+
+  filter = signal<'all'|'pending'|'completed'>('all');
+  tacksByFilter = computed(()=>{
+    const filter = this.filter();
+    const tacks = this.tacks();
+    if(filter  === 'pending'){
+      return tacks.filter(tack => !tack.completed)
+    }
+    if(filter  === 'completed'){
+      return tacks.filter(tack => tack.completed)
+    }
+    return tacks;
+  })
+
 
   changeHandler() {
     if (this.tacksControl.valid && this.tacksControl.value.trim() != '') {
@@ -116,7 +130,10 @@ export class HomeComponent {
     })
   }
 
+  changeFilter(filter : 'all'|'pending'|'completed'){
+    this.filter.set(filter);
 
+  }
 
 
 }

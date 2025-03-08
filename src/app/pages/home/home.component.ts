@@ -1,4 +1,4 @@
-import { Component, computed, signal } from '@angular/core';
+import { Component, computed, signal,effect, Injector,inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Tack } from '../../model/tack.model';
 import { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
@@ -16,6 +16,26 @@ import { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
 })
 export class HomeComponent {
 
+  tacks = signal<Tack[]>([]);
+  injector=inject(Injector);
+
+
+  ngOnInit(){
+    const storageTacks = localStorage.getItem('tacks');
+    if(storageTacks){
+      this.tacks.set(JSON.parse(storageTacks));
+    }
+    this.trackTacks();
+  }
+
+  trackTacks(){
+    effect(()=>{
+      const tacks = this.tacks();
+      localStorage.setItem('tacks', JSON.stringify(tacks));
+    },{injector: this.injector});
+  }
+
+
 
   tacksControl = new FormControl('',
     {
@@ -27,23 +47,6 @@ export class HomeComponent {
     }
   )
 
-  tacks = signal<Tack[]>([
-    {
-      id: Date.now(),
-      title: 'Instalar el CLI de angular',
-      completed: false
-    },
-    {
-      id: Date.now(),
-      title: 'Crear el proyecto',
-      completed: false
-    },
-    {
-      id: Date.now(),
-      title: 'Levantar el servicio',
-      completed: false
-    }
-  ])
 
   filter = signal<'all'|'pending'|'completed'>('all');
   tacksByFilter = computed(()=>{
@@ -57,6 +60,10 @@ export class HomeComponent {
     }
     return tacks;
   })
+
+
+ 
+
 
 
   changeHandler() {

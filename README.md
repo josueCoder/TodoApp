@@ -1,27 +1,33 @@
-# TodoApp
+# **TodoApp - Administrador de Tareas en Angular**
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 18.2.2.
+Bienvenido a **TodoApp**, una aplicación desarrollada en **Angular** que te permite gestionar tus tareas diarias de manera eficiente y reactiva. 🚀
 
-## Development server
+## 🌟 **Características Principales**
+- ✅ **Añadir y eliminar tareas** de forma sencilla.
+- 🎯 **Marcar tareas como completadas** para llevar un mejor control.
+- 🔍 **Filtrado dinámico** de tareas (todas, pendientes y completadas).
+- 💾 **Almacenamiento persistente en LocalStorage** para que no pierdas tus apuntes al recargar la página.
+- ⚡ **Alta reactividad** con `Signals`, `Computed` y `Effect` para una mejor experiencia de usuario.
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+## 🛠 **Tecnologías y Herramientas Utilizadas**
+- **Angular**: Framework frontend moderno y escalable.
+- **Signals**: Para la reactividad de los estados de la aplicación.
+- **Computed State**: Generación automática de estados derivados.
+- **ReactiveFormsModule**: Manejo de formularios reactivos con validaciones integradas.
+- **Effect**: Para el almacenamiento y sincronización de datos en LocalStorage.
+- **Firebase**: Hosting y despliegue de la aplicación.
 
-## Code scaffolding
+## 🚀 **Deploy**
+Puedes probar la aplicación en vivo aquí: [TodoApp - Live Demo](https://todoapp-83486.web.app/)
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+## 📌 **¿Por qué este proyecto?**
+Este proyecto fue creado con el objetivo de demostrar habilidades avanzadas en **Angular y reactividad**, optimizando la gestión de estado y el rendimiento de la aplicación.
 
-## Build
+📩 ¡No dudes en contactarme si tienes alguna pregunta o sugerencia! 🚀
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
 
-## Running unit tests
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
 
-## Running end-to-end tests
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
 
-## Further help
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.

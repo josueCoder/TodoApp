@@ -36,9 +36,25 @@
             {{i}}. {{tack}}
         </li>
     </ul>
+    <!--new sintaxis for-->
+    <br/>
+    <ul>
+        @for(tack of tacks(); track tack ; let i = $index){
+            <li>{{i}} {{tack}}</li>
+        }@empty {
+            <li>No hay tareas</li>
+        }
+    </ul>
 
     <hr/>
     <h2>ngIf</h2>
+
+    <!--new sintxis-->
+    @if(person().name === 'josue'){
+        <div>My name is josue</div>
+        <p>*New sintaxis</p>
+    }
+        
 
     <input type="number" [value]="person().age" (change)="ageHandler($event)">
     <p *ngIf="person().age >= 18 ; else elseBlock">Soy mayor de 18 años</p>
@@ -46,6 +62,15 @@
     <ng-template #elseBlock>
         <p>Soy menor de 18 años</p>
     </ng-template>
+    <!--New Sintaxis-->
+    @if(person().age >= 18 && person().name === 'josue'){
+        <div>My name is josue and I am older than 18</div>
+        <p>*New sintaxis</p>
+
+    }@else {
+        <div>My name is not josue and I am younger than 18</div>
+        <p>*New sintaxis</p>
+    }
 
     <h2>ngSwitch</h2>
 
@@ -82,6 +107,28 @@
         <label for="lastName">Last Name</label>
         <input id="lastName" type="text">
     </p>
+
+    <p>New sintaxis</p>
+    <div [ngSwitch]="person().name">
+        <p *ngSwitchCase="'josue'"> Yo soy josue</p>
+        <p *ngSwitchCase="'diego'"> Yo soy diego</p>
+        <p *ngSwitchCase="'piero'"> Yo soy piero</p>
+        <p *ngSwitchCase="'susan'"> Yo soy susan</p>
+        <p *ngSwitchCase="'michael'"> Yo soy michael</p>
+        <p *ngSwitchDefault>No soy nadie</p>
+    </div>
+
+    @switch (person().name) {
+        @case('josue'){
+            <p>Yo soy josue</p>
+        }
+        @case('diego'){
+            <p>Yo soy diego</p>
+        } 
+        @default {
+            <p>No soy nadie</p>
+        }  
+    }
 
 
 

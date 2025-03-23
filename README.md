@@ -25,7 +25,7 @@ Este proyecto fue creado con el objetivo de demostrar habilidades avanzadas en *
 
 📩 ¡No dudes en contactarme si tienes alguna pregunta o sugerencia! 🚀
 
-![alt text](./image.png)
+![alt text](../TodoApp/img-readme/image.png)
 
 
 

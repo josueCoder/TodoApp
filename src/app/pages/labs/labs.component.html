@@ -1,87 +1,167 @@
 <div class="container">
-    <h1>{{title}}</h1>
-    <ul>
-        <li *ngFor="let tack of tacks()">{{tack}}</li>
-    </ul>
-    <hr/>
-    <h3>{{'hello'.repeat(5)}}</h3>
-    <p>La suma de 3+3 es {{3+3}}</p>
-    <hr/>
-    <p>I am {{name()}} and I have {{age}} years old, my address is {{address}}</p>
-    <hr/>
-    
-    <img [src]="person().avatar" alt="">
-    <input type="text" [value]="person().name">
-    <input type="number" [value]="person().age">
-    <button type="submit"  disabled="false">Click Me</button>
-    <hr/>
-    <h3>Eventos</h3>
-    <p>Click</p>
-    <button class="button" (click)="clickHandler()"> Click Me Ok</button>
-    <p>Double Click</p>
-    <button class="button" (dblclick)="dblClickHandler($event)">Double Click Me </button>
-    <p>Change</p>
-    <input type="number" [value]="person().age" (change)="changeHandler($event)">
-    <p>key Down</p>
-    <input type="text" [value]="person().name" (keydown)="keydownHandler($event)">
+  <h1>{{title}}</h1>
+  <ul>
+    @for (tack of tacks(); track tack) {
+      <li>{{tack}}</li>
+    }
+  </ul>
+  <hr/>
+  <h3>{{'hello'.repeat(5)}}</h3>
+  <p>La suma de 3+3 es {{3+3}}</p>
+  <hr/>
+  <p>I am {{name()}} and I have {{age}} years old, my address is {{address}}</p>
+  <hr/>
 
-    <h2>Signals</h2>
+  <img [src]="person().avatar" alt="">
+  <input type="text" [value]="person().name">
+  <input type="number" [value]="person().age">
+  <button type="submit"  disabled="false">Click Me</button>
+  <hr/>
+  <h3>Eventos</h3>
+  <p>Click</p>
+  <button class="button" (click)="clickHandler()"> Click Me Ok</button>
+  <p>Double Click</p>
+  <button class="button" (dblclick)="dblClickHandler($event)">Double Click Me </button>
+  <p>Change</p>
+  <input type="number" [value]="person().age" (change)="changeHandler($event)">
+  <p>key Down</p>
+  <input type="text" [value]="person().name" (keydown)="keydownHandler($event)">
 
-    <input type="text" [value]="name()" (keydown)="nameHandler($event)">
-    <input type="text" [value]="name()">
+  <h2>Signals</h2>
 
-    <p>Total: {{tacks().length}}</p>
-    <ul>
-        <li *ngFor="let tack of tacks(); index as i">
-            {{i}}. {{tack}}
-        </li>
-    </ul>
+  <input type="text" [value]="name()" (keydown)="nameHandler($event)">
+  <input type="text" [value]="name()">
 
-    <hr/>
-    <h2>ngIf</h2>
+  <p>Total: {{tacks().length}}</p>
+  <ul>
+    @for (tack of tacks(); track tack; let i = $index) {
+      <li>
+        {{i}}. {{tack}}
+      </li>
+    }
+  </ul>
+  <!--new sintaxis for-->
+  <br/>
+  <ul>
+    @for(tack of tacks(); track tack ; let i = $index){
+      <li>{{i}} {{tack}}</li>
+      }@empty {
+      <li>No hay tareas</li>
+    }
+  </ul>
 
-    <input type="number" [value]="person().age" (change)="ageHandler($event)">
-    <p *ngIf="person().age >= 18 ; else elseBlock">Soy mayor de 18 años</p>
+  <hr/>
+  <h2>ngIf</h2>
 
-    <ng-template #elseBlock>
-        <p>Soy menor de 18 años</p>
-    </ng-template>
+  <!--new sintxis-->
+  @if(person().name === 'josue'){
+    <div>My name is josue</div>
+    <p>*New sintaxis</p>
+  }
 
-    <h2>ngSwitch</h2>
 
-    <input type="text" [value]="person().name" (keydown)="nameHandlerFooter($event)">
-    <div [ngSwitch]="person().name">
-        <p *ngSwitchCase="'josue'"> Yo soy josue</p>
-        <p *ngSwitchCase="'diego'"> Yo soy diego</p>
-        <p *ngSwitchCase="'piero'"> Yo soy piero</p>
-        <p *ngSwitchCase="'susan'"> Yo soy susan</p>
-        <p *ngSwitchCase="'michael'"> Yo soy michael</p>
-        <p *ngSwitchDefault>No soy nadie</p>
-    </div>
-    <h2>Formularios Reactivos</h2>
+  <input type="number" [value]="person().age" (change)="ageHandler($event)">
+  @if (person().age >= 18 ) {
+    <p>Soy mayor de 18 años</p>
+  } @else {
+    <p>Soy menor de 18 años</p>
+  }
 
-    <input type="color" [formControl]="colorCtrl">
-    <p>Color: {{colorCtrl.value}}</p>
+  <!--New Sintaxis-->
+  @if(person().age >= 18 && person().name === 'josue'){
+    <div>My name is josue and I am older than 18</div>
+    <p>*New sintaxis</p>
 
-    <svg>
-        <g>
-            <rect x="0" y="0" height="100" width="100" [attr.fill]="colorCtrl.value"/>
-        </g>
-    </svg>
-    <hr/>
-    <input type="number" [formControl]="widthCtrl">
-    <span class="box" [style.width.px]="widthCtrl.value"></span>
-    <hr/>
-    <h2>clases</h2>
-    <p>
-        <label for="name">Name</label>
-        <input id="name" type="text" [formControl]="nameCtrl"> 
-    </p>
-    <span class="message-error" [class.show]="nameCtrl.invalid && nameCtrl.touched">Datos no validos</span>
-    <p>
-        <label for="lastName">Last Name</label>
-        <input id="lastName" type="text">
-    </p>
+    }@else {
+    <div>My name is not josue and I am younger than 18</div>
+    <p>*New sintaxis</p>
+  }
+
+  <h2>ngSwitch</h2>
+
+  <input type="text" [value]="person().name" (keydown)="nameHandlerFooter($event)">
+  <div>
+    @switch (person().name) {
+      @case ('josue') {
+        <p> Yo soy josue</p>
+      }
+      @case ('diego') {
+        <p> Yo soy diego</p>
+      }
+      @case ('piero') {
+        <p> Yo soy piero</p>
+      }
+      @case ('susan') {
+        <p> Yo soy susan</p>
+      }
+      @case ('michael') {
+        <p> Yo soy michael</p>
+      }
+      @default {
+        <p>No soy nadie</p>
+      }
+    }
+  </div>
+  <h2>Formularios Reactivos</h2>
+
+  <input type="color" [formControl]="colorCtrl">
+  <p>Color: {{colorCtrl.value}}</p>
+
+  <svg>
+    <g>
+      <rect x="0" y="0" height="100" width="100" [attr.fill]="colorCtrl.value"/>
+    </g>
+  </svg>
+  <hr/>
+  <input type="number" [formControl]="widthCtrl">
+  <span class="box" [style.width.px]="widthCtrl.value"></span>
+  <hr/>
+  <h2>clases</h2>
+  <p>
+    <label for="name">Name</label>
+    <input id="name" type="text" [formControl]="nameCtrl">
+  </p>
+  <span class="message-error" [class.show]="nameCtrl.invalid && nameCtrl.touched">Datos no validos</span>
+  <p>
+    <label for="lastName">Last Name</label>
+    <input id="lastName" type="text">
+  </p>
+
+  <p>New sintaxis</p>
+  <div>
+    @switch (person().name) {
+      @case ('josue') {
+        <p> Yo soy josue</p>
+      }
+      @case ('diego') {
+        <p> Yo soy diego</p>
+      }
+      @case ('piero') {
+        <p> Yo soy piero</p>
+      }
+      @case ('susan') {
+        <p> Yo soy susan</p>
+      }
+      @case ('michael') {
+        <p> Yo soy michael</p>
+      }
+      @default {
+        <p>No soy nadie</p>
+      }
+    }
+  </div>
+
+  @switch (person().name) {
+    @case('josue'){
+      <p>Yo soy josue</p>
+    }
+    @case('diego'){
+      <p>Yo soy diego</p>
+    }
+    @default {
+      <p>No soy nadie</p>
+    }
+  }
 
 
 
